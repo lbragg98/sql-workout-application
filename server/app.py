@@ -1,3 +1,5 @@
+"""Flask application entrypoint and REST API routes."""
+
 from pathlib import Path
 
 from flask import Flask, jsonify, request
@@ -17,6 +19,7 @@ from schemas import (
 )
 
 app = Flask(__name__)
+# Use an absolute SQLite path so running from different directories uses the same DB file.
 db_path = Path(__file__).resolve().parent / "app.db"
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path.as_posix()}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -28,6 +31,7 @@ ma.init_app(app)
 
 @app.errorhandler(ValidationError)
 def handle_validation_error(error):
+    """Return Marshmallow validation errors in a consistent JSON shape."""
     return jsonify({"errors": error.messages}), 400
 
 

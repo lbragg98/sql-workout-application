@@ -1,3 +1,5 @@
+"""Database models, relationships, constraints, and model-level validation."""
+
 from datetime import date
 
 from flask_sqlalchemy import SQLAlchemy
@@ -90,6 +92,8 @@ class Workout(db.Model):
 
 
 class WorkoutExercise(db.Model):
+    """Join model storing per-workout metrics for a specific exercise."""
+
     __tablename__ = "workout_exercises"
 
     id = db.Column(db.Integer, primary_key=True)

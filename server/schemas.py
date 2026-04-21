@@ -1,5 +1,6 @@
+"""Marshmallow schemas for serialization, deserialization, and payload validation."""
+
 from marshmallow import ValidationError, validates_schema
-from marshmallow import fields as ma_fields
 from flask_marshmallow import Marshmallow
 
 from models import Exercise, Workout, WorkoutExercise
@@ -54,6 +55,8 @@ class WorkoutExerciseFlatSchema(ma.SQLAlchemySchema):
 
 
 class WorkoutExerciseDetailSchema(ma.SQLAlchemySchema):
+    """Read-only nested representation used in workout detail responses."""
+
     class Meta:
         model = WorkoutExercise
 
